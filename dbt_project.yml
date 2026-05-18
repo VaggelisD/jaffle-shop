@@ -15,8 +15,6 @@ test-paths: ["data-tests"]
 seed-paths: ["seeds"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
-function-paths: ["functions"]
-
 target-path: "target"
 function-paths: ["functions"]
 clean-targets:

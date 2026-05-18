@@ -1,17 +1,21 @@
 with
 
 customers as (
+
     select * from {{ ref('stg_customers') }}
+
 ),
 
 orders as (
+
     select * from {{ ref('orders') }}
+
 ),
 
 customer_orders_summary as (
 
     select
-        orders.customer_id,
+        customers.customer_id,
 
         count(distinct orders.order_id) as count_lifetime_orders,
         count(distinct orders.order_id) > 1 as is_repeat_buyer,
@@ -21,7 +25,10 @@ customer_orders_summary as (
         sum(orders.tax_paid) as lifetime_tax_paid,
         sum(orders.order_total) as lifetime_spend
 
-    from orders
+    from customers
+
+    left join orders
+        on customers.customer_id = orders.customer_id
 
     group by 1
 
@@ -46,7 +53,7 @@ joined as (
 
     from customers
 
-    join customer_orders_summary
+    left join customer_orders_summary
         on customers.customer_id = customer_orders_summary.customer_id
 
 )
