@@ -46,6 +46,8 @@ compute_booleans as (
 
         order_items_summary.order_cost,
         order_items_summary.order_items_subtotal,
+        order_items_summary.order_items_subtotal as gross_revenue,
+        order_items_summary.order_items_subtotal - order_items_summary.order_cost as gross_margin,
         order_items_summary.count_food_items,
         order_items_summary.count_drink_items,
         order_items_summary.count_order_items,
